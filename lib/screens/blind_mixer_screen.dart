@@ -56,32 +56,31 @@ class _BlindMixerScreenState extends State<BlindMixerScreen> {
         ),
         Container(),
       ][currentPage],
-      bottomNavigationBar: SafeArea(
-
-        child: Container(
-          decoration: BoxDecoration(
-          color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xffF0F0F0),
-                offset: Offset(0, -5), // X-axis offset 0, Y-axis offset -5 (moves shadow upwards)
-                blurRadius: 10,
-                spreadRadius: 2,
-              )
-            ],
+      bottomNavigationBar: Container(
+        margin: EdgeInsets.only(top: 5),
+        padding: EdgeInsets.only(bottom: 20),
+        decoration: BoxDecoration(
+        color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xffF0F0F0),
+              offset: Offset(0, -5), // X-axis offset 0, Y-axis offset -5 (moves shadow upwards)
+              blurRadius: 10,
+              spreadRadius: 2,
+            )
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: List.generate(5, (index) =>   IconButton(
+            style: IconButton.styleFrom(
+              backgroundColor:  currentPage==index?cPurpleTint:null,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))
+            ),
+            onPressed:() => onPressedNavigation(index),
+            icon:index==1?Image.asset('assets/images/heart-black.png',height: 25,): SvgPicture.asset('assets/svg/navbar$index.svg',
+              colorFilter: ColorFilter.mode(currentPage==index?cPurple:Colors.black, BlendMode.srcIn),),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: List.generate(5, (index) =>   IconButton(
-              style: IconButton.styleFrom(
-                backgroundColor:  currentPage==index?cPurpleTint:null,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))
-              ),
-              onPressed:() => onPressedNavigation(index),
-              icon:index==1?Image.asset('assets/images/heart-black.png',height: 25,): SvgPicture.asset('assets/svg/navbar$index.svg',
-                colorFilter: ColorFilter.mode(currentPage==index?cPurple:Colors.black, BlendMode.srcIn),),
-            ),
-            ),
           ),
         ),
       ),
