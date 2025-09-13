@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mixer_app/constants/colors.dart';
+import 'package:mixer_app/constants/numeric.dart';
 
 class SubscriptionScreen extends StatefulWidget {
   const SubscriptionScreen({super.key});
@@ -13,149 +15,120 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Mixer',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
+    return Container(
+      color: Colors.white,
+      child: Container(
+        decoration: BoxDecoration(
+          gradient:_selectedPlan==0?RadialGradient(
+            center:Alignment(0.0, -1.5),
+              radius: 1,
+              focalRadius: 0.5,
+              colors: [cMixerBackgroundGradient1,cMixerBackgroundGradient2,]
+          ): LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+
+              stops:[0.1,.2],
+
+              colors:[cMixerVIPBackgroundGradient1,cMixerVIPBackgroundGradient2]
+          )
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.close, color: Colors.black),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Level Up Your Mixer Experience',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.transparent,
+            centerTitle: false,
+            title: Text(
+              'Mixer',
+              style: kManrope700.copyWith(fontSize: 24),
+            ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.close, color: Color(0xffB3B4B7)),
+                onPressed:Navigator.of(context).pop,
               ),
-              const SizedBox(height: 24),
-              const Text(
-                'Select a plan',
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Expanded(
-                    child: _buildPlanCard(
-                      title: 'Mixer',
-                      price: '24.99',
-                      description: 'All of the below',
-                      iconColor: const Color(0xFF5B1778),
-                      isSelected: _selectedPlan == 0,
-                      onTap: () {
-                        setState(() {
-                          _selectedPlan = 0;
-                        });
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: _buildPlanCard(
-                      title: 'Mixer VIP',
-                      price: '99.99',
-                      description: 'All 3 + VIP seating,\nfood, and beverages',
-                      iconColor: const Color(0xFFDAA520),
-                      isSelected: _selectedPlan == 1,
-                      onTap: () {
-                        setState(() {
-                          _selectedPlan = 1;
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 32),
-              _buildVipFeaturesCard(),
-              const SizedBox(height: 20),
-              _buildContinueButton(),
-              const SizedBox(height: 16),
-              const Text(
-                'By continuing, you agree to be charged, with auto-renewal until canceled in App Store settings, under Mixer\'s Terms.',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 12, color: Colors.grey),
-              ),
-              const SizedBox(height: 20),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPlanCard({
-    required String title,
-    required String price,
-    required String description,
-    required Color iconColor,
-    required bool isSelected,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: isSelected ? Colors.purple[50] : Colors.grey[100],
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isSelected ? const Color(0xFF5B1778) : Colors.transparent,
-            width: 2,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Level Up Your Mixer Experience',
+                      style: kManrope800.copyWith(color: _selectedPlan==0?cMixerText:cMixerVIPText),
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      'Select a plan',
+                      textAlign: TextAlign.left,
+                      style: kManrope500,
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _selectedPlan = 0;
+                              });
+                            },
+                            child: PlanCard(
+                              index: 0,
+                              selected: _selectedPlan==0,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _selectedPlan = 1;
+                              });
+                            },
+                            child: PlanCard(
+                              index: 1,
+                              selected: _selectedPlan==1,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 32),
+                    _buildVipFeaturesCard(_selectedPlan),
+                  ],
                 ),
-                const Spacer(),
-                Icon(Icons.favorite, color: iconColor),
+
+                Column(mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _buildContinueButton(),
+                    const SizedBox(height: 20),
+
+                    Text(
+                      'By continuing, you agree to be charged, with auto-renewal until canceled in App Store settings, under Mixer\'s Terms.',
+                      textAlign: TextAlign.center,
+                      style:kManrope500.copyWith(fontSize: 10, color: cArrowForward),
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
               ],
             ),
-            const SizedBox(height: 8),
-            Text(
-              '\$$price',
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              description,
-              style: const TextStyle(fontSize: 14, color: Colors.grey),
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildVipFeaturesCard() {
+  Widget _buildVipFeaturesCard(int selected) {
     final List<String> vipFeatures = [
       'Unlimited Likes',
       'See who liked you',
@@ -167,67 +140,146 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+        // color:,
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: selected==0?cMixerSelectedBorder:cMixerVIPSelectedBorder)
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.topCenter,
         children: [
-          const Center(
-            child: Text(
-              'Included with Mixer VIP',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          ...vipFeatures.map((feature) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-              child: Row(
-                children: [
-                  const Icon(Icons.check, color: Colors.green),
-                  const SizedBox(width: 12),
-                  Text(
-                    feature,
-                    style: const TextStyle(fontSize: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ...vipFeatures.map((feature) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: Row(
+                    children: [
+                      Icon(Icons.check, color:selected==0? cMixerText:cMixerVIPText),
+                      const SizedBox(width: 12),
+                      Text(
+                        feature,
+                        style:kManrope500,
+                      ),
+                    ],
                   ),
-                ],
+                );
+              }),
+            ],
+          ),
+           Positioned(
+             top: -kMinInteractiveDimension,
+             child: Chip(
+               visualDensity:  VisualDensity(),
+               backgroundColor:selected==0?cMixerSelectedBg:cMixerVIPSelectedBg,
+               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              side: BorderSide(color:selected==0?cMixerSelectedBorder:cMixerVIPSelectedBorder ),
+              label: Text(
+                'Included with Mixer VIP',
+                style: kManrope600.copyWith(fontSize: 12),
               ),
-            );
-          }),
+                       ),
+           ),
         ],
       ),
     );
   }
 
   Widget _buildContinueButton() {
-    final buttonColor =
-    _selectedPlan == 0 ? const Color(0xFF5B1778) : const Color(0xFFDAA520);
-
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.white,
-        backgroundColor: buttonColor,
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        elevation: 0,
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 11),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(39),
+        gradient: LinearGradient(
+           begin: Alignment.centerRight,
+            end: Alignment.centerLeft,
+            stops: [
+              0.05,0.97
+            ],
+            colors: _selectedPlan==0?[cMixerGradient1,cMixerGradient2]
+            :[cMixerVIPGradient1,cMixerVIPGradient2]
+        )
       ),
-      onPressed: () {},
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: GestureDetector(
+        onTap: () {},
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/images/heart-black.png',height: 25,width: 25,color: Colors.white,),
+            const SizedBox(width: 8),
+            Text(
+              'Continue - \$${_selectedPlan == 0 ? '24.99' : '99.99'} total',
+              style: kManrope600.copyWith(color: Colors.white),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PlanCard extends StatelessWidget {
+  const PlanCard({
+    super.key, required this.index, required this.selected,
+  });
+  final int index;
+  final bool selected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 146,
+      padding: const EdgeInsets.all(11),
+      decoration: BoxDecoration(
+        color:selected? index==0 ? cMixerSelectedBg:cMixerVIPSelectedBg: null,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color:selected? index==0 ? cMixerSelectedBorder:cMixerVIPSelectedBorder: cMixerBorder,
+          width: 2,
+        ),
+      ),
+      child: Column(
+        // mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.favorite, color: Colors.white),
-          const SizedBox(width: 8),
-          Text(
-            'Continue - \$${_selectedPlan == 0 ? '24.99' : '99.99'} total',
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                // mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    index==0?'Mixer':'Mixer VIP',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'SF Pro',
+                      color: cTextBlack,
+                      fontVariations: [
+                        FontVariation('wght', 510)
+                      ]
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    '\$${index==0?24.99:99.99}',
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              Image.asset('assets/images/${index==0?'heart_mixer':'heart_mixer_vip'}.png',height: 35,width: 35,),
+            ],
+          ),
+
+          const SizedBox(height: 8),
+          Flexible(
+            child: Text(
+              index==0?'All of the below':'Mixer + VIP seating, food, and beverages',
+              style: kManrope500.copyWith(fontSize: 14, color: cGrey),
             ),
           ),
         ],

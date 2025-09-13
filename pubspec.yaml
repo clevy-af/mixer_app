@@ -66,8 +66,8 @@ flutter:
   fonts:
     - family: Manrope
       fonts:
-        - asset: fonts/Manrope.ttf
+        - asset: assets/fonts/Manrope.ttf
 
     - family: Onest
       fonts:
-        - asset: fonts/Onest-Variable.ttf
+        - asset: assets/fonts/Onest-Variable.ttf

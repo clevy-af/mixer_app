@@ -26,10 +26,9 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const BlindMixerScreen(), // Set your initial screen here
-        '/blind-mixer': (context) => const BlindMixerScreen(),
-        '/edit-profile': (context) => const EditProfileScreen(),
-        '/subscription': (context) => const SubscriptionScreen(),
+        '/': (context) => const BlindMixerScreen(),
+        EditProfileScreen.routeName: (context) => const EditProfileScreen(),
+        SubscriptionScreen.routeName: (context) => const SubscriptionScreen(),
       },
     );
   }
