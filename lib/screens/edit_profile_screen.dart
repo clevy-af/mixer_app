@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:svg_flutter/svg.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});
@@ -16,10 +17,12 @@ class EditProfileScreen extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        actions: const [
+        actions:  [
           Padding(
             padding: EdgeInsets.only(right: 16.0),
-            child: Icon(Icons.visibility_outlined, color: Colors.black),
+            child:  SvgPicture.asset('assets/svg/navbar3.svg',
+              colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+            )
           ),
         ],
       ),
@@ -50,7 +53,7 @@ class EditProfileScreen extends StatelessWidget {
   Widget _buildProfileImageGrid() {
     // Placeholder for profile images. Use a List of Image.asset.
     final List<String> profileImages = [
-      'assets/images/profile1.jpg',
+      'assets/images/profile1.png',
       'assets/images/profile2.jpg',
       'assets/images/profile3.jpg',
       'assets/images/profile4.jpg',
@@ -109,23 +112,63 @@ class EditProfileScreen extends StatelessWidget {
 
   Widget _buildDetailsList() {
     final List<Map<String, dynamic>> items = [
-      {'icon': Icons.person_outline, 'text': 'About me (Bio)'},
-      {'icon': Icons.question_answer_outlined, 'text': 'What are you looking for?'},
-      {'icon': Icons.female_outlined, 'text': 'Gender'},
-      {'icon': Icons.cake_outlined, 'text': 'Birthday (Age)'},
-      {'icon': Icons.height_outlined, 'text': 'Height'},
-      {'icon': Icons.favorite_outline, 'text': 'Interested in?'},
-      {'icon': Icons.wc_outlined, 'text': 'Sexuality'},
-      {'icon': Icons.people_outline, 'text': 'Relationship'},
-      {'icon': Icons.language_outlined, 'text': 'Ethnicity'},
-      {'icon': Icons.child_friendly_outlined, 'text': 'Kids'},
-      {'icon': Icons.wine_bar_outlined, 'text': 'Drinking'},
-      {'icon': Icons.smoking_rooms_outlined, 'text': 'Smoking'},
-      {'icon': Icons.grass_outlined, 'text': 'Marijuana'},
-      {'icon': Icons.church_outlined, 'text': 'Religious Beliefs'},
-      {'icon': Icons.gavel_outlined, 'text': 'Political Views'},
-      {'icon': Icons.star_border, 'text': 'Interest and Hobbies'},
-      {'icon': Icons.diamond_outlined, 'text': 'Values & Lifestyle'},
+      {
+        'icon':  SvgPicture.asset('assets/svg/user.svg',
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ),
+        'text': 'About me (Bio)'
+      },
+      {
+        'icon':  SvgPicture.asset('assets/svg/heart-search.svg',
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ),
+        'text': 'What are you looking for?',
+      },
+      {'icon': SvgPicture.asset('assets/svg/gender.svg',
+      colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ), 'text': 'Gender'},
+      {'icon': SvgPicture.asset('assets/svg/setting.svg',
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ), 'text': 'Birthday (Age)'},
+      {'icon': SvgPicture.asset('assets/svg/height.svg',
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ), 'text': 'Height'},
+      {'icon': SvgPicture.asset('assets/svg/like.svg',
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ), 'text': 'Interested in?'},
+      {'icon':SvgPicture.asset('assets/svg/gender.svg',
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ), 'text': 'Sexuality'},
+      {'icon': SvgPicture.asset('assets/svg/relation.svg',
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ), 'text': 'Relationship'},
+      {'icon': SvgPicture.asset('assets/svg/ethnicity.svg',
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ), 'text': 'Ethnicity'},
+      {'icon': SvgPicture.asset('assets/svg/kids.svg',
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ), 'text': 'Kids'},
+      {'icon':SvgPicture.asset('assets/svg/drinking.svg',
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ), 'text': 'Drinking'},
+      {'icon':SvgPicture.asset('assets/svg/smoking.svg',
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ), 'text': 'Smoking'},
+      {'icon': SvgPicture.asset('assets/svg/weed.svg',
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ), 'text': 'Marijuana'},
+      {'icon':SvgPicture.asset('assets/svg/religion.svg',
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ), 'text': 'Religious Beliefs'},
+      {'icon':SvgPicture.asset('assets/svg/party.svg',
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ), 'text': 'Political Views'},
+      {'icon':SvgPicture.asset('assets/svg/star.svg',
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ), 'text': 'Interest and Hobbies'},
+      {'icon': SvgPicture.asset('assets/svg/lifestyle.svg',
+        colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+      ), 'text': 'Values & Lifestyle'},
     ];
 
     return Column(
@@ -181,9 +224,34 @@ class EditProfileScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           // Placeholder for the group of people image
-          Image.asset(
-            'assets/images/quiz_people.png',
-            height: 60,
+          Expanded(
+            child: Stack(
+              alignment: Alignment.center,
+              children:[
+                Positioned(
+                  left:0,
+                  child: Image.asset(
+                    'assets/images/stack0.png',
+                    height: 46.63,
+                  ),
+                ),
+                Positioned(
+                  right:0,
+                  child: Image.asset(
+                    'assets/images/stack0.png',
+                    height: 46.63,
+                  ),
+                ),
+                Positioned(
+                  left:30.0,
+                  bottom: 5,
+                  child: Image.asset(
+                    'assets/images/stack1.png',
+                    height: 54.400001525878906,
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 16),
           ElevatedButton(

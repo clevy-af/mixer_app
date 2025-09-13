@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class SubscriptionScreen extends StatefulWidget {
   const SubscriptionScreen({super.key});
+  static String routeName='/subscription';
 
   @override
   State<SubscriptionScreen> createState() => _SubscriptionScreenState();

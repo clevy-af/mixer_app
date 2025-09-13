@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/blind_mixer_screen.dart';
 import 'screens/edit_profile_screen.dart';
-import 'screens/homepage_seen_everyone_screen.dart';
 import 'screens/subscription_screen.dart';
 
 void main() {
@@ -30,7 +29,6 @@ class MyApp extends StatelessWidget {
         '/': (context) => const BlindMixerScreen(), // Set your initial screen here
         '/blind-mixer': (context) => const BlindMixerScreen(),
         '/edit-profile': (context) => const EditProfileScreen(),
-        '/homepage-seen-everyone': (context) => const HomepageSeenEveryoneScreen(),
         '/subscription': (context) => const SubscriptionScreen(),
       },
     );
